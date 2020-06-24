@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<HTML>
+<head>
+<title> Cross Site Scripting | XSS</title>
+<!--stylesheet-->
+<link rel="stylesheet" href="style.css">
+<!----------------->
+<style>
+ul.breadcrumb {
+  padding: 8px 16px;
+  list-style: none;
+  background-color: #eee;
+}
+
+ul.breadcrumb li {display: inline;}
+
+ul.breadcrumb li+li:before {
+  padding: 8px;
+  color: black;
+  content: "/\00a0";
+}
+
+ul.breadcrumb li a {color: green;}
+</style>
+</head>
+<body>
+<!--## body start here ##-->
+<ul class="breadcrumb">
+  <li><a href="index.html">Home</a></li>
+  <li><a href="#">2nd</a></li>
+  <li><a href="#">3nd</a></li>
+</ul>
+<center><h1>Hacking Lab</h1></center>
+<center><h2>Cross Site Scripting | XSS</h2></center>
+<br>
+<center><h2>JavaScript Can Validate Input</h2>
+
+<p>Please input a number between 1 and 10:</p>
+
+<input id="numb">
+
+<button type="button" onclick="myFunction()">Submit</button>
+
+<p id="demo"></p>
+
+<script>
+function myFunction() {
+  var x, text;
+
+  // Get the value of the input field with id="numb"
+  x = document.getElementById("numb").value;
+
+  // If x is Not a Number or less than one or greater than 10
+  if (isNaN(x) || x < 1 || x > 10) {
+    text = "Input not valid";
+  } else {
+    text = "Input OK";
+  }
+  document.getElementById("demo").innerHTML = text;
+}
+</script>
+
+</center>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="center">
+  <div class="pagination">
+  <a href="#">&laquo;</a>
+  <a href="index.html">1</a>
+  <a href="2.html">2</a>
+  <a href="#"class="active">3</a>
+  <a href="#">4</a>
+  <a href="#">5</a>
+  <a href="#">6</a>
+  <a href="#">&raquo;</a>
+  </div>
+</div>
+
+<!--## body end  here ##-->
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<HTML>
+<head>
+<title> Cross Site Scripting | XSS</title>
+<!--stylesheet-->
+<link rel="stylesheet" href="style.css">
+<!----------------->
+<style>
+ul.breadcrumb {
+  padding: 8px 16px;
+  list-style: none;
+  background-color: #eee;
+}
+
+ul.breadcrumb li {display: inline;}
+
+ul.breadcrumb li+li:before {
+  padding: 8px;
+  color: black;
+  content: "/\00a0";
+}
+
+ul.breadcrumb li a {color: green;}
+</style>
+</head>
+<body>
+<!--## body start here ##-->
+<ul class="breadcrumb">
+  <li><a href="index.html">Home</a></li>
+  <li><a href="#">2nd</a></li>
+</ul>
+<center><h1>Hacking Lab</h1></center>
+<center><h2>Cross Site Scripting | XSS</h2></center>
+<br>
+<center><form action="/action_page.php">
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="fname" value="John"><br>
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="lname" value="Doe"><br><br>
+  <input type="submit">
+</form>
+</center>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="center">
+  <div class="pagination">
+  <a href="#">&laquo;</a>
+  <a href="index.html">1</a>
+  <a href="#"class="active">2</a>
+  <a href="3.html">3</a>
+  <a href="#">4</a>
+  <a href="#">5</a>
+  <a href="#">6</a>
+  <a href="#">&raquo;</a>
+  </div>
+</div>
+
+<!--## body end  here ##-->
+</body>
+</html>

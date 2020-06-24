@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<HTML>
+<head>
+<title> Cross Site Scripting | XSS</title>
+<!--stylesheet-->
+<link rel="stylesheet" href="style.css">
+<!----------------->
+<style>
+ul.breadcrumb {
+  padding: 8px 16px;
+  list-style: none;
+  background-color: #eee;
+}
+
+ul.breadcrumb li {display: inline;}
+
+ul.breadcrumb li+li:before {
+  padding: 8px;
+  color: black;
+  content: "/\00a0";
+}
+
+ul.breadcrumb li a {color: green;}
+</style>
+<script>
+function setCookie(cname,cvalue,exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  var expires = "expires=" + d.toGMTString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+function checkCookie() {
+  var user=getCookie("username");
+  if (user != "") {
+    alert("Welcome again " + user);
+  } else {
+     user = prompt("Please enter your name:","");
+     if (user != "" && user != null) {
+       setCookie("username", user, 30);
+     }
+  }
+}
+</script>
+</head>
+<body>
+<!--## body start here ##-->
+<ul class="breadcrumb">
+  <li><a href="index.html">Home</a></li>
+  <li><a href="#">2nd</a></li>
+  <li><a href="#">3nd</a></li>
+  <li><a href="#">4nd</a></li>
+</ul>
+<center><h1>Hacking Lab</h1></center>
+<center><h2>Cross Site Scripting | XSS</h2></center>
+<br>
+<center>
+<h4>Java script cookie </h4>
+<body onload="checkCookie()"></body>
+</center>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="center">
+  <div class="pagination">
+  <a href="#">&laquo;</a>
+  <a href="index.html">1</a>
+  <a href="2.html">2</a>
+  <a href="#">3</a>
+  <a href="#"class="active">4</a>
+  <a href="#">5</a>
+  <a href="#">6</a>
+  <a href="#">&raquo;</a>
+  </div>
+</div>
+
+<!--## body end  here ##-->
+</body>
+</html>
